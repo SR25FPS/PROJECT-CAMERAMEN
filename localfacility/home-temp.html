@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+            overflow: hidden; /* Prevent scrolling */
+        }
+        .navbar {
+            background-color: #1e1e1f;
+            padding: 10px 20px;
+            color: white;
+            position: relative; /* Position relative for z-index */
+            z-index: 1; /* Ensure navbar is above other content */
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 14px 20px;
+            display: inline-block;
+        }
+        .navbar a:hover {
+            background-color: #141414;
+        }
+        .container {
+            display: flex;
+            height: 100vh; /* Full viewport height */
+        }
+        .text-section {
+            flex: 1; /* Takes half of the space */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-color: #f4f4f4;
+        }
+        .image-section {
+            flex: 1; /* Takes half of the space */
+            background-image: url('homebg.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+        }
+        .button {
+            padding: 15px 30px;
+            font-size: 16px;
+            color: white;
+            background-color: #353535;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 20px; /* Space above the button */
+        }
+        .button:hover {
+            background-color: #494b49;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+        <a href="http://localhost/localfacility/calendar.php">Calendar</a>
+    </div>
+    <div class="container">
+        <div class="text-section">
+            <h1>Welcome to My Home Page</h1>
+            <p>Click the button below to go to the calendar.</p>
+            <a href="http://localhost/localfacility/calendar.php" class="button">Go to Calendar</a>
+        </div>
+        <div class="image-section"></div>
+    </div>
+</body>
+</html>
