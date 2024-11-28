@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+    <title>Calendar Page</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,7 +44,7 @@
         .top-section {
             flex: 1; 
             display: flex;
-            flex-direction: column; /* Allow vertical stacking */
+            flex-direction: column; 
             justify-content: center;
             align-items: center;
             text-align: center;
@@ -53,14 +53,14 @@
         .bottom-section {
             flex: 1; 
             display: flex;
-            flex-direction: column; /* Allow vertical stacking */
-            justify-content: flex-start; /* Align items to the top */
+            flex-direction: column; 
+            justify-content: flex-start; 
             text-align: center;
-            background-color: #000; /* Black background */
-            color: white; /* White text color */
-            padding: 20px; /* Add padding */
-            border-radius: 5px; /* Rounded corners */
-            margin: 20px; /* Margin around the box */
+            background-color: #000; 
+            color: white; 
+            padding: 20px; 
+            border-radius: 5px; 
+            margin: 20px; 
         }
         .button {
             padding: 15px 30px;
@@ -71,7 +71,7 @@
             border-radius: 5px;
             cursor: pointer;
             text-decoration: none;
-            margin-top: 10px; /* Reduced margin-top */
+            margin-top: 10px; 
         }
         .button:hover {
             background-color: #494b49;
@@ -80,15 +80,18 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px; 
-            color: white; /* White text for table */
+            color: white; 
         }
         th, td {
-            border: 1px solid white; /* White borders */
+            border: 1px solid white; 
             padding: 8px;
             text-align: left;
         }
         th {
-            background-color: #444; /* Darker background for header */
+            background-color: #444; 
+        }
+        .invisible {
+            display: none; /* This class will hide the priority ID */
         }
     </style>
 </head>
@@ -97,7 +100,7 @@
         <img src="logo.png" alt="Logo">
         <a href="home-temp.html">Home</a>
         <a href="about.html">About</a>
-        <a href="#services">Services</a>
+        <a href="http://localhost/localfacility/input.php">Services</a>
         <a href="#contact">Contact</a>
         <a href="http://localhost/localfacility/calendar.php">Calendar</a>
     </div>
@@ -108,35 +111,38 @@
                 <p>"Optimizing Your Spaces, Simplifying Your Schedule."</p>
             </div>
             <div class="bottom-section">
-    <h1>Users Data</h1>
-    <table>
-        <tr>
-            <th>Priority ID</th>
-            <th>Reserved By</th>
-            <th>Facility ID</th>
-            <th>Timeframe</th>
-            <th>Event</th>
-        </tr>
-        <?php
-            include 'connect.php';
-            $sql = "SELECT priority_id, reservedby, facility_id, timeframe, event FROM general_data";
-            $result = $conn->query($sql);
+                <h1>Users Data</h1>
+                <table>
+                    <tr>
+                        <th class="invisible">Priority ID</th> <!-- Invisible column for sorting -->
+                        <th>Reserved By</th>
+                        <th>Facility ID</th>
+                        <th>Timeframe</th> <!-- Moved Timeframe to be before Event -->
+                        <th>Event</th> <!-- Moved Event to be after Timeframe -->
+                    </tr>
+                    <?php
+                        include 'connect.php';
+                        $sql = "SELECT priority_id, reservedby, facility_id, timeframe, event FROM general_data ORDER BY priority_id";
+                        $result = $conn->query($sql);
 
-            if ($result && $result->num_rows > 0) {
-                while($row = $result->fetch_assoc()) {
-                    echo "<tr>";
-                    echo "<td>" . htmlspecialchars($row["priority_id"]) . "</td>";
-                    echo "<td>" . htmlspecialchars($row["reservedby"]) . "</td>";
-                    echo "<td>" . htmlspecialchars($row["facility_id"]) . "</td>";
-                    echo "<td>" . htmlspecialchars($row["timeframe"]) . "</td>";
-                    echo "<td>" . htmlspecialchars($row["event"]) . "</td>";
-                    echo "</tr>";
-                }
-            } else {
-                echo "<tr><td colspan='5'>0 results</td></tr>";
-            }
+                        if ($result && $result->num_rows > 0) {
+                            while($row = $result->fetch_assoc()) {
+                                echo "<td class='invisible'>" . htmlspecialchars($row["priority_id"]) . "</td>"; // Invisible Priority ID
+                                echo "<td>" . htmlspecialchars($row["reservedby"]) . "</td>"; // Output Reserved By
+                                echo "<td>" . htmlspecialchars($row["facility_id"]) . "</td>"; // Output Facility ID
+                                echo "<td>" . htmlspecialchars($row["timeframe"]) . "</td>"; // Output Timeframe
+                                echo "<td>" . htmlspecialchars($row["event"]) . "</td>"; // Output Event
+                                echo "</tr>";
+                            }
+                        } else {
+                            echo "<tr><td colspan='5'>0 results</td></tr>";
+                        }
 
-            $conn->close();
-        ?>
-    </table>
-</div>
+                        $conn->close();
+                    ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
